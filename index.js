@@ -1,10 +1,8 @@
 require('dotenv').config();
 const moment = require('moment');
 const { client } = require('./src/mqtt');
-const { store, actions } = require('./src/store');
-const log = require('./src/log');
+const { actions } = require('./src/store');
 
-store.subscribe(() => log.info({ state: store.getState() }));
 client.subscribe('/heating/out');
 client.subscribe('sensors/temperature/out');
 
