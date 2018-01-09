@@ -1,0 +1,25 @@
+{
+  "name": "thermos",
+  "version": "1.0.0",
+  "description": "Thermostat API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woof-woof/thermos.git"
+  },
+  "author": "woof-woof",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woof-woof/thermos/issues"
+  },
+  "homepage": "https://github.com/woof-woof/thermos#readme",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
