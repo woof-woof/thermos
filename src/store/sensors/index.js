@@ -7,11 +7,11 @@ const UPDATE_SENSORS = 'UPDATE_SENSORS';
 const UPDATE_DELAY = 4000; // force an update every 4 seconds
 
 const actions = createActions({
-  [UPDATE_SENSORS]: (id, response) => ({ id, response }),
+  UPDATE_SENSORS: (id, response) => ({ id, response }),
 });
 
 const reducers = handleActions({
-  [UPDATE_SENSORS]: (state, { payload: { id, response } }) => state.set(id, response),
+  UPDATE_SENSORS: (state, { payload: { id, response } }) => state.set(id, response),
 }, {});
 
 function* requestSensorUpdate() {

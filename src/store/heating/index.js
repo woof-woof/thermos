@@ -7,11 +7,11 @@ const UPDATE_HEATING = 'UPDATE_HEATING';
 const UPDATE_DELAY = 4000; // force an update every 4 seconds
 
 const actions = createActions({
-  [UPDATE_HEATING]: (value, timestamp) => ({ value, timestamp }),
+  UPDATE_HEATING: (value, timestamp) => ({ value, timestamp }),
 });
 
 const reducers = handleActions({
-  [UPDATE_HEATING]: (state, { payload }) => state.replace(payload),
+  UPDATE_HEATING: (state, { payload }) => state.replace(payload),
 }, {});
 
 function* requestHeatingUpdate() {
