@@ -1,4 +1,3 @@
-require('dotenv').config();
 const Server = require('mqtt-server');
 const { server: config } = require('../config');
 
