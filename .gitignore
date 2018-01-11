@@ -1,5 +1,6 @@
 # Var
-var/*
+var/db/*
+!/var/db/.gitkeep
 
 # Logs
 logs
