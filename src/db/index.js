@@ -1,4 +1,4 @@
-const { getConfig, updateConfig } = require('./api');
+const { getConfig, updateConfig } = require('./repo');
 
 module.exports = {
   getConfig, updateConfig,
