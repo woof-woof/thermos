@@ -16,4 +16,4 @@ client.on('sensors/temperature/out', (message) => {
   actions.updateSensors(id, { temperature, humidity, timestamp: moment(timestamp).format() });
 });
 
-console.log(config.get());
+log.info(config.get(), 'CONFIG');
