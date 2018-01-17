@@ -1,7 +1,6 @@
 const { createActions, handleActions } = require('redux-actions');
 const { delay } = require('redux-saga');
 const { all, takeLatest } = require('redux-saga/effects');
-const { heatingControlSaga } = require('../sagas');
 const api = require('../../mqtt/api');
 
 const UPDATE_SENSORS = 'UPDATE_SENSORS';
@@ -22,7 +21,7 @@ function* requestSensorUpdate() {
 
 const sagas = function* main() {
   yield all([
-    takeLatest(UPDATE_SENSORS, [requestSensorUpdate, heatingControlSaga]),
+    takeLatest(UPDATE_SENSORS, requestSensorUpdate),
   ]);
 };
 
@@ -30,4 +29,5 @@ module.exports = {
   reducers,
   actions,
   sagas,
+  UPDATE_SENSORS,
 };

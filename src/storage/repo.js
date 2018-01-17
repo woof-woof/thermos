@@ -15,10 +15,17 @@ const config = {
   },
 };
 
-
 const schedule = {
   get(id) {
     return storage.getItem(this.getKey(id));
+  },
+
+  getAll() {
+    const schedules = config.get('schedules');
+    return schedules.reduce((result, id) => {
+      result[id] = this.get(id); // eslint-disable-line no-param-reassign
+      return result;
+    }, {});
   },
 
   set(id, value) {

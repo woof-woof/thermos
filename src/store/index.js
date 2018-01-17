@@ -3,6 +3,7 @@ const { all, fork } = require('redux-saga/effects');
 const Immutable = require('seamless-immutable');
 const heating = require('./heating');
 const sensors = require('./sensors');
+const sagas = require('./sagas');
 const { sagaMiddleware, logMiddleware } = require('./middleware');
 
 const initialState = Immutable.from({
@@ -29,6 +30,7 @@ function* rootSaga() {
   yield all([
     fork(sensors.sagas),
     fork(heating.sagas),
+    fork(sagas),
   ]);
 }
 
@@ -37,4 +39,5 @@ sagaMiddleware.run(rootSaga);
 module.exports = {
   store,
   actions,
+  state: store.getState,
 };
