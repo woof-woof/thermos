@@ -1,17 +1,21 @@
 const { createActions, handleActions } = require('redux-actions');
 const { delay } = require('redux-saga');
 const { all, takeLatest } = require('redux-saga/effects');
+const { HEATING_ON, HEATING_OFF } = require('../../behaviour/constants');
 const api = require('../../mqtt/api');
+const { heatingControlSaga } = require('../sagas');
 
-const UPDATE_HEATING = 'UPDATE_HEATING';
 const UPDATE_DELAY = 4000; // force an update every 4 seconds
+const UPDATE_HEATING = 'UPDATE_HEATING';
 
 const actions = createActions({
-  UPDATE_HEATING: (value, timestamp) => ({ value, timestamp }),
+  [UPDATE_HEATING]: (value, timestamp) => ({ value, timestamp }),
+  [HEATING_ON]: () => {},
+  [HEATING_OFF]: () => {},
 });
 
 const reducers = handleActions({
-  UPDATE_HEATING: (state, { payload }) => state.replace(payload),
+  [UPDATE_HEATING]: (state, { payload }) => state.replace(payload),
 }, {});
 
 function* requestHeatingUpdate() {
@@ -21,7 +25,7 @@ function* requestHeatingUpdate() {
 
 const sagas = function* main() {
   yield all([
-    takeLatest(UPDATE_HEATING, requestHeatingUpdate),
+    takeLatest(UPDATE_HEATING, [requestHeatingUpdate, heatingControlSaga]),
   ]);
 };
 

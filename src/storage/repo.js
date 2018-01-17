@@ -41,7 +41,7 @@ const schedule = {
     return storage.removeItem(this.getKey(id));
   },
 
-  getActiveSchedule() {
+  getActive() {
     return this.get(config.get('activeSchedule')) || defaults.schedule;
   },
 

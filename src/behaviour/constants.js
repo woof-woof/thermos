@@ -1,0 +1,5 @@
+module.exports = {
+  HEATING_ON: 'HEATING_ON',
+  HEATING_OFF: 'HEATING_OFF',
+  NO_ACTION: 'NO_ACTION',
+};
