@@ -31,6 +31,7 @@
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
-    "seamless-immutable": "^7.1.2"
+    "seamless-immutable": "^7.1.2",
+    "temperature-config-parser": "git+https://github.com/woof-woof/temperature-config-parser.git"
   }
 }

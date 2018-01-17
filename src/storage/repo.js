@@ -27,7 +27,6 @@ const schedule = {
       schedules.push(id);
       config.set('schedules', schedules);
     }
-    console.log('set schedule', this.getKey(id), value);
     return storage.setItem(this.getKey(id), value);
   },
 
@@ -42,7 +41,7 @@ const schedule = {
     return storage.removeItem(this.getKey(id));
   },
 
-  getActiveSchedule() {
+  getActive() {
     return this.get(config.get('activeSchedule')) || defaults.schedule;
   },
 
