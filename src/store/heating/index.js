@@ -3,7 +3,7 @@ const { delay } = require('redux-saga');
 const { all, takeLatest } = require('redux-saga/effects');
 const api = require('../../mqtt/api');
 
-const UPDATE_DELAY = 4000; // force an update every 4 seconds
+const UPDATE_DELAY = 10 * 1000; // update interval
 const UPDATE_HEATING = 'UPDATE_HEATING';
 
 const actions = createActions({
