@@ -11,7 +11,7 @@ function* heatingControlSaga() {
   const current = yield select(state => Object.values(state.sensors).map(s => s.temperature));
   const { temperature } = configParser.getProgram(storage.schedule.getActive());
   const action = yield heatingControl(current, heating, temperature, storage.config.get());
-  if (action !== NO_ACTION) api.dummy(action === HEATING_ON);
+  if (action !== NO_ACTION) api.setHeating(action === HEATING_ON);
 }
 
 function* publishStatusSaga() {
