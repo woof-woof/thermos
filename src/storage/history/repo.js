@@ -1,14 +1,4 @@
-const moment = require('moment');
 const db = require('./connection');
-
-function query(sql, params) {
-  return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-}
 
 function ensureTablesExist() {
   db.serialize(() => {
@@ -50,37 +40,7 @@ function logState(state) {
   }
 }
 
-/**
- * Get state history
- * @param  {Date} start
- * @param  {Date} end
- * @param  {int} interval seconds
- * @return { heating, sensors }
- *
- */
-async function getHistory(start, end, interval) {
-  const sensors = await query(
-    `SELECT sensorId, AVG(temperature) AS temperature, AVG(humidity) AS humidity, MAX(timestamp) AS timestamp,
-    strftime('%s', timestamp)/? AS tmp
-    FROM sensors WHERE timestamp BETWEEN ? AND ?
-    GROUP BY sensorId, tmp
-    `,
-    [interval, moment(start).format(), moment(end).format()],
-  );
-  const heating = await query(
-    `SELECT program, AVG(heating) AS heating, MAX(timestamp) AS timestamp,
-    strftime('%s', timestamp)/? AS tmp
-    FROM heating WHERE timestamp BETWEEN ? AND ?
-    GROUP BY tmp
-    `,
-    [interval, moment(start).format(), moment(end).format()],
-  );
-
-  return { heating, sensors };
-}
-
 module.exports = {
   ensureTablesExist,
   logState,
-  getHistory,
 };
