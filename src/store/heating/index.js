@@ -7,7 +7,7 @@ const UPDATE_DELAY = 10 * 1000; // update interval
 const UPDATE_HEATING = 'UPDATE_HEATING';
 
 const actions = createActions({
-  [UPDATE_HEATING]: (value, timestamp, program) => ({ value, timestamp, program }),
+  [UPDATE_HEATING]: (value, timestamp) => ({ value, timestamp }),
 });
 
 const reducers = handleActions({
