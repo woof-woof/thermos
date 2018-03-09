@@ -5,7 +5,7 @@ const server = require('./src/mqtt');
 const { state, actions } = require('./src/store');
 const storage = require('./src/storage');
 require('./src/storage/history'); // init db
-const { logState } = require('./src/storage/history/repo');
+const { logState, getHistory } = require('./src/storage/history/repo');
 
 const SERVER_NAME = 'thermos2';
 // internal
@@ -31,4 +31,7 @@ server.sub(`${SERVER_NAME}/status/in`, null, () => JSON.stringify({
   program: configParser.getProgram(storage.schedule.getActive()),
 }));
 
+server.res(`${SERVER_NAME}/history/get/in`, ({ start, end, interval }) => JSON.stringify(getHistory(start, end, interval)));
+
 setInterval(() => logState(state()), process.env.SATE_LOG_INTERVAL || 10 * 60 * 1000);
+
