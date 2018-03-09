@@ -7,7 +7,7 @@ const storage = require('./src/storage');
 require('./src/storage/history'); // init db
 const { logState, getHistory } = require('./src/storage/history/repo');
 
-const SERVER_NAME = 'thermos2';
+const SERVER_NAME = 'thermos';
 // internal
 server.listen('/heating/out', message => actions.updateHeating(
   parseInt(message, 10),
