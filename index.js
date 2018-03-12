@@ -32,6 +32,6 @@ server.sub(`${SERVER_NAME}/status/in`, null, () => JSON.stringify({
 }));
 
 server.res(`${SERVER_NAME}/history/get/in`, ({ start, end, interval }) => JSON.stringify(getHistory(start, end, interval)));
+server.res(`${SERVER_NAME}/override`, req => storage.override.set(req || {}));
 
 setInterval(() => logState(state()), process.env.SATE_LOG_INTERVAL || 10 * 60 * 1000);
-

@@ -1,3 +1,4 @@
+const uuidv4 = require('uuid/v4');
 const storage = require('./local-storage');
 const defaults = require('../config/defaults');
 
@@ -57,7 +58,34 @@ const schedule = {
   },
 };
 
+const override = {
+  getAll() {
+    return storage.getItem('overrides');
+  },
+  getActive() {
+    const overrides = this.getAll();
+    const now = Date.now();
+    const active = overrides.filter(o => o.start <= now && o.end > now);
+    return active.length ? active[0] : false;
+  },
+  set(item) {
+    let overrides = this.getAll();
+    if (!overrides) {
+      overrides = [];
+    }
+    const id = uuidv4();
+    const createdAt = Date.now();
+    const start = item.start || createdAt;
+    const end = start + (item.duration || 7200);
+    const processed = { id, createdAt, start, end };
+    overrides.push(processed);
+    storage.setItem('overrides', overrides);
+    return processed;
+  },
+};
+
 module.exports = {
   config,
   schedule,
+  override,
 };
