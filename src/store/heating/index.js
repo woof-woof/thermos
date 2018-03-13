@@ -1,6 +1,6 @@
 const { createActions, handleActions } = require('redux-actions');
 const { delay } = require('redux-saga');
-const { all, takeLatest } = require('redux-saga/effects');
+const { all, fork } = require('redux-saga/effects');
 const api = require('../../mqtt/api');
 
 const UPDATE_DELAY = 10 * 1000; // update interval
@@ -14,14 +14,16 @@ const reducers = handleActions({
   [UPDATE_HEATING]: (state, { payload }) => state.replace(payload),
 }, {});
 
-function* requestHeatingUpdate() {
-  yield delay(UPDATE_DELAY);
-  api.requestHeatingUpdate();
+function* requestHeatingUpdateSaga() {
+  while (true) {
+    api.requestHeatingUpdate();
+    yield delay(UPDATE_DELAY);
+  }
 }
 
 const sagas = function* main() {
   yield all([
-    takeLatest(UPDATE_HEATING, requestHeatingUpdate),
+    fork(requestHeatingUpdateSaga),
   ]);
 };
 
