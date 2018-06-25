@@ -8,12 +8,12 @@ require('./src/storage/history'); // init db
 const { logState, getHistory } = require('./src/storage/history/repo');
 
 // internal
-server.listen('/heating/out', message => actions.updateHeating(
+server.listen(`${CFG.TOPIC_HEATING}/out`, message => actions.updateHeating(
   parseInt(message, 10),
   moment().format(),
   configParser.getProgram(storage.schedule.getActive()),
 ));
-server.listen('sensors/temperature/out', (message) => {
+server.listen(`${CFG.TOPIC_TEMPERATURE}/out`, (message) => {
   const response = JSON.parse(message);
   const { id, temperature, humidity, timestamp } = response;
   actions.updateSensors(id, { temperature, humidity, timestamp: moment(timestamp).format() });
@@ -32,4 +32,4 @@ server.sub(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_STATUS}/in`, null, () => JSON.strin
 
 server.res(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_HISTORY}/get/in`, ({ start, end, interval }) => getHistory(start, end, interval));
 
-setInterval(() => logState(state()), CFG.SATE_LOG_INTERVAL);
+setInterval(() => logState(state()), CFG.SATE_LOG_INTERVAL * 1000);

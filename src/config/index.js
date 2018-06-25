@@ -34,5 +34,6 @@ module.exports = {
   ETOPIC_HISTORY: process.env.ETOPIC_HISTORY || 'history',
   TOPIC_TEMPERATURE: process.env.TOPIC_TEMPERATURE || 'sensors/temperature',
   TOPIC_HEATING: process.env.TOPIC_HEATING || '/heating',
-  SATE_LOG_INTERVAL: process.env.SATE_LOG_INTERVAL || 600,
+  SATE_LOG_INTERVAL: process.env.SATE_LOG_INTERVAL ?
+    parseInt(process.env.SATE_LOG_INTERVAL, 10) : 600,
 };
