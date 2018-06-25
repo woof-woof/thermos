@@ -1,7 +1,6 @@
-const ENV = require('./src/config/env');
+const CFG = require('./src/config');
 const moment = require('moment');
 const configParser = require('temperature-config-parser');
-require('./src/config/env');
 const server = require('./src/mqtt');
 const { state, actions } = require('./src/store');
 const storage = require('./src/storage');
@@ -20,17 +19,17 @@ server.listen('sensors/temperature/out', (message) => {
   actions.updateSensors(id, { temperature, humidity, timestamp: moment(timestamp).format() });
 });
 // endpoints
-server.sub(`${ENV.SERVER_TOPIC}/${ENV.ETOPIC_SCHEDULES}/get/in`, null, () => JSON.stringify(storage.schedule.getAll()));
-server.sub(`${ENV.SERVER_TOPIC}/${ENV.ETOPIC_SCHEDULES}/set/in`, `${ENV.SERVER_TOPIC}/${ENV.ETOPIC_SCHEDULES}/get/out`, (message) => {
+server.sub(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_SCHEDULES}/get/in`, null, () => JSON.stringify(storage.schedule.getAll()));
+server.sub(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_SCHEDULES}/set/in`, `${CFG.SERVER_TOPIC}/${CFG.ETOPIC_SCHEDULES}/get/out`, (message) => {
   const schedules = JSON.parse(message);
   Object.entries(schedules).forEach(([id, schedule]) => storage.schedule.set(id, schedule));
   return JSON.stringify(storage.schedule.getAll());
 });
-server.sub(`${ENV.SERVER_TOPIC}/${ENV.ETOPIC_STATUS}/in`, null, () => JSON.stringify({
+server.sub(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_STATUS}/in`, null, () => JSON.stringify({
   ...state(),
   program: configParser.getProgram(storage.schedule.getActive()),
 }));
 
-server.res(`${ENV.SERVER_TOPIC}/${ENV.ETOPIC_HISTORY}/get/in`, ({ start, end, interval }) => getHistory(start, end, interval));
+server.res(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_HISTORY}/get/in`, ({ start, end, interval }) => getHistory(start, end, interval));
 
-setInterval(() => logState(state()), ENV.SATE_LOG_INTERVAL);
+setInterval(() => logState(state()), CFG.SATE_LOG_INTERVAL);
