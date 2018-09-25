@@ -7,7 +7,7 @@ require('dotenv').config();
 //   ETOPIC_HISTORY: 'history',
 //   TOPIC_TEMPERATURE: 'sensors/temperature',
 //   TOPIC_HEATING: '/heating',
-//   SATE_LOG_INTERVAL: 600,
+//   STATE_LOG_INTERVAL: 600,
 // };
 // const FINAL = process.env;
 // if (!FINAL.__loaded) { // eslint-disable-line no-underscore-dangle
@@ -34,6 +34,6 @@ module.exports = {
   ETOPIC_HISTORY: process.env.ETOPIC_HISTORY || 'history',
   TOPIC_TEMPERATURE: process.env.TOPIC_TEMPERATURE || 'sensors/temperature',
   TOPIC_HEATING: process.env.TOPIC_HEATING || '/heating',
-  SATE_LOG_INTERVAL: process.env.SATE_LOG_INTERVAL ?
-    parseInt(process.env.SATE_LOG_INTERVAL, 10) : 600,
+  STATE_LOG_INTERVAL: process.env.STATE_LOG_INTERVAL ?
+    parseInt(process.env.STATE_LOG_INTERVAL, 10) : 600,
 };

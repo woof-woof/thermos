@@ -32,4 +32,4 @@ server.sub(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_STATUS}/in`, null, () => JSON.strin
 
 server.res(`${CFG.SERVER_TOPIC}/${CFG.ETOPIC_HISTORY}/get/in`, ({ start, end, interval }) => getHistory(start, end, interval));
 
-setInterval(() => logState(state()), CFG.SATE_LOG_INTERVAL * 1000);
+setInterval(() => logState(state()), CFG.STATE_LOG_INTERVAL * 1000);
