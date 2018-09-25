@@ -32,7 +32,7 @@
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
     "seamless-immutable": "^7.1.2",
-    "sqlite3": "^3.1.13",
+    "sqlite3": "^4.0.1",
     "temperature-config-parser": "git+https://github.com/woof-woof/temperature-config-parser.git"
   }
 }
